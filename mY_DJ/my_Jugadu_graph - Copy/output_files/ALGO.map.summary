@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Mon Feb 21 23:33:13 2022
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : ALGO
+Top-level Entity Name : f_b
+Family : Cyclone IV E
+Total logic elements : 8,814
+    Total combinational functions : 6,729
+    Dedicated logic registers : 4,022
+Total registers : 4022
+Total pins : 1
+Total virtual pins : 0
+Total memory bits : 25,088
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

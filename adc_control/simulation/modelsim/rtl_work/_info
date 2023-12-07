@@ -1,0 +1,54 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/simulation/modelsim
+vadc_control
+Z1 !s110 1637841984
+!i10b 1
+!s100 R80Bfkih3e>@KNW6cDKB>0
+IM<>]j;;`SQ;9@J=zNo1ll0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1637840938
+8D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/adc_control.v
+FD:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/adc_control.v
+L0 22
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1637841984.000000
+!s107 D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/adc_control.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control|D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/adc_control.v|
+!i113 1
+Z5 o-vlog01compat -work work
+!s92 -vlog01compat -work work {+incdir+D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control}
+Z6 tCvgOpt 0
+vadc_tb
+R1
+!i10b 1
+!s100 a@@6Td5mEn=<63HoWoQFi2
+I>f^Am;4gJK<M3T]bmnkem1
+R2
+R0
+w1636916481
+8D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/simulation/modelsim/adc_tb.v
+FD:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/simulation/modelsim/adc_tb.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/simulation/modelsim/adc_tb.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/simulation/modelsim|D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/simulation/modelsim/adc_tb.v|
+!i113 1
+R5
+!s92 -vlog01compat -work work {+incdir+D:/QuartusEyantra/Eyantra 2022 Task2A/adc_control/simulation/modelsim}
+R6

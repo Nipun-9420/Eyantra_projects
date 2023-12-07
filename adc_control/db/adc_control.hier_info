@@ -1,0 +1,28 @@
+|adc_control
+clk_50 => r_adc_sck.CLK
+clk_50 => count[0].CLK
+clk_50 => count[1].CLK
+clk_50 => count[2].CLK
+clk_50 => count[3].CLK
+dout => LessThan1.IN13
+dout => Mux0.IN6
+dout => Mux1.IN6
+dout => Mux2.IN6
+dout => Mux3.IN6
+dout => Mux4.IN6
+dout => Mux5.IN6
+dout => Mux6.IN6
+dout => Mux7.IN6
+dout => Mux8.IN6
+dout => Mux9.IN6
+dout => Mux10.IN6
+adc_cs_n <= r_adc_cs_n[0].DB_MAX_OUTPUT_PORT_TYPE
+din <= r_din.DB_MAX_OUTPUT_PORT_TYPE
+adc_sck <= r_adc_sck.DB_MAX_OUTPUT_PORT_TYPE
+d_out_ch[0] <= r_d_out_ch5[0].DB_MAX_OUTPUT_PORT_TYPE
+d_out_ch[1] <= r_d_out_ch6[0].DB_MAX_OUTPUT_PORT_TYPE
+d_out_ch[2] <= r_d_out_ch7[0].DB_MAX_OUTPUT_PORT_TYPE
+data_frame[0] <= r_data_frame[0].DB_MAX_OUTPUT_PORT_TYPE
+data_frame[1] <= r_data_frame[1].DB_MAX_OUTPUT_PORT_TYPE
+
+

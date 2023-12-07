@@ -1,0 +1,16 @@
+Fitter Status : Successful - Wed Jan 19 12:51:23 2022
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : blink
+Top-level Entity Name : b_led
+Family : Cyclone IV E
+Device : EP4CE22F17C6
+Timing Models : Final
+Total logic elements : 1,030 / 22,320 ( 5 % )
+    Total combinational functions : 615 / 22,320 ( 3 % )
+    Dedicated logic registers : 816 / 22,320 ( 4 % )
+Total registers : 816
+Total pins : 4 / 154 ( 3 % )
+Total virtual pins : 0
+Total memory bits : 4,480 / 608,256 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

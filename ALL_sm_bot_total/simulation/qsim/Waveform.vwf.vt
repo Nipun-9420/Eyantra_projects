@@ -1,0 +1,409 @@
+// Copyright (C) 2019  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and any partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details, at
+// https://fpgasoftware.intel.com/eula.
+
+// *****************************************************************************
+// This file contains a Verilog test bench with test vectors .The test vectors  
+// are exported from a vector file in the Quartus Waveform Editor and apply to  
+// the top level entity of the current Quartus project .The user can use this   
+// testbench to simulate his design using a third-party simulation tool .       
+// *****************************************************************************
+// Generated on "02/02/2021 20:57:10"
+                                                                                
+// Verilog Test Bench (with test vectors) for design :                          sm_0535_Line_follower
+// 
+// Simulation tool : 3rd Party
+// 
+
+`timescale 1 ps/ 1 ps
+module sm_0535_Line_follower_vlg_vec_tst();
+// constants                                           
+// general purpose registers
+reg clk_adc;
+reg clk_sm_bot;
+reg dout_adc;
+// wires                                               
+wire chip_select_adc;
+wire clk_mod_adc;
+wire din_adc;
+wire pwm_A1_A;
+wire pwm_A1_B;
+wire pwm_B1_A;
+wire pwm_B1_B;
+
+// assign statements (if any)                          
+sm_0535_Line_follower i1 (
+// port map - connection between master ports and signals/registers   
+	.chip_select_adc(chip_select_adc),
+	.clk_adc(clk_adc),
+	.clk_mod_adc(clk_mod_adc),
+	.clk_sm_bot(clk_sm_bot),
+	.din_adc(din_adc),
+	.dout_adc(dout_adc),
+	.pwm_A1_A(pwm_A1_A),
+	.pwm_A1_B(pwm_A1_B),
+	.pwm_B1_A(pwm_B1_A),
+	.pwm_B1_B(pwm_B1_B)
+);
+initial 
+begin 
+#1000000 $finish;
+end 
+
+// clk_adc
+always
+begin
+	clk_adc = 1'b0;
+	clk_adc = #1000 1'b1;
+	#1000;
+end 
+
+// clk_sm_bot
+always
+begin
+	clk_sm_bot = 1'b0;
+	clk_sm_bot = #1000 1'b1;
+	#1000;
+end 
+
+// dout_adc
+initial
+begin
+	dout_adc = 1'b0;
+	dout_adc = #2053 1'b1;
+	dout_adc = #4600 1'b0;
+	dout_adc = #5400 1'b1;
+	dout_adc = #4600 1'b0;
+	dout_adc = #5487 1'b1;
+	dout_adc = #9800 1'b0;
+	dout_adc = #9542 1'b1;
+	dout_adc = #2000 1'b0;
+	dout_adc = #3000 1'b1;
+	dout_adc = #2000 1'b0;
+	dout_adc = #2285 1'b1;
+	dout_adc = #1950 1'b0;
+	dout_adc = #3050 1'b1;
+	dout_adc = #1950 1'b0;
+	dout_adc = #2283 1'b1;
+	dout_adc = #1864 1'b0;
+	dout_adc = #5500 1'b1;
+	dout_adc = #2636 1'b0;
+	dout_adc = #267 1'b1;
+	dout_adc = #2500 1'b0;
+	dout_adc = #2500 1'b1;
+	dout_adc = #2500 1'b0;
+	dout_adc = #3165 1'b1;
+	dout_adc = #3200 1'b0;
+	dout_adc = #15967 1'b1;
+	dout_adc = #7400 1'b0;
+	dout_adc = #2501 1'b1;
+	dout_adc = #173 1'b0;
+	dout_adc = #10400 1'b1;
+	dout_adc = #11446 1'b0;
+	dout_adc = #2200 1'b1;
+	dout_adc = #2800 1'b0;
+	dout_adc = #2200 1'b1;
+	dout_adc = #781 1'b0;
+	dout_adc = #421 1'b1;
+	dout_adc = #1900 1'b0;
+	dout_adc = #3100 1'b1;
+	dout_adc = #1900 1'b0;
+	dout_adc = #3297 1'b1;
+	# 1799;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #1534 1'b1;
+		# 1799;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #2077 1'b1;
+	dout_adc = #3000 1'b0;
+	dout_adc = #7000 1'b1;
+	dout_adc = #3000 1'b0;
+	dout_adc = #7517 1'b1;
+	dout_adc = #5000 1'b0;
+	dout_adc = #5000 1'b1;
+	dout_adc = #5000 1'b0;
+	dout_adc = #3323 1'b1;
+	dout_adc = #2447 1'b0;
+	dout_adc = #5200 1'b1;
+	dout_adc = #2353 1'b0;
+	dout_adc = #2256 1'b1;
+	dout_adc = #8600 1'b0;
+	dout_adc = #12349 1'b1;
+	# 2066;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #4600 1'b1;
+		# 2066;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #1397 1'b1;
+	dout_adc = #1545 1'b0;
+	dout_adc = #6900 1'b1;
+	dout_adc = #1555 1'b0;
+	dout_adc = #4199 1'b1;
+	dout_adc = #3500 1'b0;
+	dout_adc = #6500 1'b1;
+	dout_adc = #3500 1'b0;
+	dout_adc = #2301 1'b1;
+	dout_adc = #3511 1'b0;
+	dout_adc = #6000 1'b1;
+	dout_adc = #489 1'b0;
+	dout_adc = #1899 1'b1;
+	# 1266;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #2067 1'b1;
+		# 1266;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #169 1'b1;
+	dout_adc = #4821 1'b0;
+	dout_adc = #13800 1'b1;
+	dout_adc = #3077 1'b0;
+	dout_adc = #4700 1'b1;
+	dout_adc = #4071 1'b0;
+	dout_adc = #1967 1'b1;
+	dout_adc = #1366 1'b0;
+	dout_adc = #1967 1'b1;
+	dout_adc = #1366 1'b0;
+	dout_adc = #1967 1'b1;
+	dout_adc = #898 1'b0;
+	dout_adc = #518 1'b1;
+	# 1266;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #2067 1'b1;
+		# 1266;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #4206 1'b1;
+	# 3599;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #3067 1'b1;
+		# 3599;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #1025 1'b1;
+	# 1133;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #2200 1'b1;
+		# 1133;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #1589 1'b1;
+	# 611;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #3733 1'b1;
+		# 2933;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #3733 1'b1;
+	dout_adc = #2677 1'b0;
+	dout_adc = #6300 1'b1;
+	dout_adc = #3700 1'b0;
+	dout_adc = #6300 1'b1;
+	dout_adc = #3347 1'b0;
+	dout_adc = #2757 1'b1;
+	dout_adc = #1650 1'b0;
+	dout_adc = #3350 1'b1;
+	dout_adc = #1650 1'b0;
+	dout_adc = #593 1'b1;
+	# 375;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #1400 1'b1;
+		# 1933;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #1400 1'b1;
+	dout_adc = #1559 1'b0;
+	dout_adc = #1266 1'b1;
+	dout_adc = #5300 1'b0;
+	dout_adc = #4700 1'b1;
+	dout_adc = #5300 1'b0;
+	dout_adc = #6072 1'b1;
+	# 2399;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #4267 1'b1;
+		# 2399;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #1631 1'b1;
+	dout_adc = #2056 1'b0;
+	dout_adc = #5000 1'b1;
+	dout_adc = #4425 1'b0;
+	dout_adc = #2934 1'b1;
+	dout_adc = #3732 1'b0;
+	dout_adc = #2934 1'b1;
+	dout_adc = #3732 1'b0;
+	dout_adc = #2934 1'b1;
+	dout_adc = #2253 1'b0;
+	dout_adc = #2396 1'b1;
+	dout_adc = #7200 1'b0;
+	dout_adc = #10404 1'b1;
+	# 1569;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #4667 1'b1;
+		# 1999;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #4667 1'b1;
+	dout_adc = #1053 1'b0;
+	dout_adc = #3800 1'b1;
+	dout_adc = #2866 1'b0;
+	dout_adc = #3800 1'b1;
+	dout_adc = #2866 1'b0;
+	dout_adc = #3800 1'b1;
+	dout_adc = #2247 1'b0;
+	dout_adc = #1255 1'b1;
+	dout_adc = #7800 1'b0;
+	dout_adc = #10945 1'b1;
+	dout_adc = #1256 1'b0;
+	dout_adc = #9000 1'b1;
+	dout_adc = #10557 1'b0;
+	dout_adc = #3350 1'b1;
+	dout_adc = #1650 1'b0;
+	dout_adc = #3350 1'b1;
+	dout_adc = #837 1'b0;
+	dout_adc = #1756 1'b1;
+	dout_adc = #2750 1'b0;
+	dout_adc = #2250 1'b1;
+	dout_adc = #2750 1'b0;
+	dout_adc = #4774 1'b1;
+	dout_adc = #11800 1'b0;
+	dout_adc = #3920 1'b1;
+	dout_adc = #2127 1'b0;
+	dout_adc = #12200 1'b1;
+	dout_adc = #8777 1'b0;
+	dout_adc = #3533 1'b1;
+	dout_adc = #3133 1'b0;
+	dout_adc = #3533 1'b1;
+	dout_adc = #3133 1'b0;
+	dout_adc = #3533 1'b1;
+	dout_adc = #31 1'b0;
+	dout_adc = #1676 1'b1;
+	# 1599;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #1734 1'b1;
+		# 1599;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #59 1'b1;
+	dout_adc = #1049 1'b0;
+	dout_adc = #12400 1'b1;
+	dout_adc = #8934 1'b0;
+	dout_adc = #2600 1'b1;
+	dout_adc = #2400 1'b0;
+	dout_adc = #2600 1'b1;
+	dout_adc = #17 1'b0;
+	dout_adc = #2453 1'b1;
+	dout_adc = #4600 1'b0;
+	dout_adc = #3241 1'b1;
+	dout_adc = #3500 1'b0;
+	dout_adc = #6500 1'b1;
+	dout_adc = #3500 1'b0;
+	dout_adc = #6951 1'b1;
+	dout_adc = #5000 1'b0;
+	dout_adc = #4255 1'b1;
+	dout_adc = #571 1'b0;
+	dout_adc = #2900 1'b1;
+	dout_adc = #2100 1'b0;
+	dout_adc = #2900 1'b1;
+	dout_adc = #1529 1'b0;
+	dout_adc = #11307 1'b1;
+	dout_adc = #8200 1'b0;
+	dout_adc = #5732 1'b1;
+	dout_adc = #3800 1'b0;
+	dout_adc = #4049 1'b1;
+	# 3133;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #3533 1'b1;
+		# 3133;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #5845 1'b1;
+	dout_adc = #3700 1'b0;
+	dout_adc = #902 1'b1;
+	dout_adc = #1023 1'b0;
+	dout_adc = #2600 1'b1;
+	dout_adc = #2400 1'b0;
+	dout_adc = #2600 1'b1;
+	dout_adc = #1665 1'b0;
+	dout_adc = #4400 1'b1;
+	dout_adc = #5312 1'b0;
+	dout_adc = #2301 1'b1;
+	dout_adc = #1600 1'b0;
+	dout_adc = #3400 1'b1;
+	dout_adc = #1600 1'b0;
+	dout_adc = #4768 1'b1;
+	# 2733;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #3933 1'b1;
+		# 2733;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #1563 1'b1;
+	dout_adc = #4500 1'b0;
+	dout_adc = #4203 1'b1;
+	dout_adc = #3115 1'b0;
+	dout_adc = #12400 1'b1;
+	dout_adc = #4485 1'b0;
+	dout_adc = #2316 1'b1;
+	dout_adc = #7600 1'b0;
+	dout_adc = #10084 1'b1;
+	# 1862;
+	repeat(2)
+	begin
+		dout_adc = 1'b0;
+		dout_adc = #2667 1'b1;
+		# 3999;
+	end
+	dout_adc = 1'b0;
+	dout_adc = #2667 1'b1;
+	dout_adc = #2139 1'b0;
+	dout_adc = #1960 1'b1;
+	dout_adc = #1850 1'b0;
+	dout_adc = #3150 1'b1;
+	dout_adc = #1850 1'b0;
+	dout_adc = #1219 1'b1;
+	dout_adc = #6200 1'b0;
+	dout_adc = #13771 1'b1;
+	dout_adc = #28 1'b0;
+	dout_adc = #4300 1'b1;
+end 
+endmodule
+

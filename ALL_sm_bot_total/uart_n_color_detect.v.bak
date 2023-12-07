@@ -1,0 +1,38 @@
+module uart_n_color_detect(
+	input clk_color,
+	input color_input,
+	output S0,
+	output S1,
+	output S2,
+	output S3,
+	output led_R,
+	output led_G,
+	output led_B, 
+	
+	input clk_uart,
+	output tx_serial
+);
+
+wire [2:0] w_color_in;
+
+
+ sm_0535_uart uart_1(
+	 .clk (clk_uart),
+	 .color_in (w_color_in),
+	 .tx_serial (tx_serial)
+	);
+	
+ sm_0535_colour_sensor_detection c_sd_1(
+	 .clk (clk_color),
+	 .color_input (color_input),
+	 .S0 (S0),
+	 .S1 (S1),
+	 .S2 (S2),
+	 .S3 (S3),
+	 .color (w_color_in),
+	 .led_R (led_R),
+	 .led_G (led_G),
+	 .led_B (led_B)
+	);
+
+endmodule 

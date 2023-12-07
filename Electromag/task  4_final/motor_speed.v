@@ -1,0 +1,65 @@
+	module pwm(
+   input clk,
+	input [6:0] speed_a1_a , // speed of right motor 
+	input [6:0] speed_b1_a , // speed of right motor
+	input [6:0] speed_a1_b , // speed of left motor
+	input [6:0] speed_b1_b , // speed of left motor
+	output A1_A,
+	output A1_B,
+	output B1_A,
+	output B1_B
+	);
+
+	reg [6:0] counter = 1;
+   
+	
+	
+	//-----------------clock_scaling---------------------------------
+	
+	reg clk_o =0;
+	reg [3:0] count;
+	reg [5:0] n;
+	
+	initial
+	begin
+		count =1 ;
+		n =20;
+		clk_o =0;
+	end
+	
+	always @ (posedge clk)
+	begin
+		if (count < (n/2))
+		begin
+			count = count +1;
+		end
+		
+		else if (count == (n/2))
+		begin
+			count = 0;
+			clk_o = ~clk_o;
+		end
+	end
+ /////////////////////////////////////////////////////////////////// 
+
+ 
+	//***********assign motor speed*****************
+	assign A1_A = (counter < speed_a1_a) ? 1:0;
+	assign B1_A = (counter < speed_b1_a) ? 1:0;
+	assign A1_B = (counter < speed_a1_b) ? 1:0;
+	assign B1_B = (counter < speed_b1_b) ? 1:0;
+
+	//***********main function******************
+	always@ (posedge clk_o)
+   begin
+      if(counter < 101)
+		begin 
+		   counter <= counter + 1;
+		end
+		else
+		begin
+		   counter <= 1;
+		end
+	end
+
+endmodule

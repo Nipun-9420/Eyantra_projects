@@ -1,0 +1,52 @@
+Arithmetic Unit is Perfect
+when sel=00000 carry=0 
+
+Arithmetic Unit is Perfect
+when sel=00000 carry=1 
+
+Arithmetic Unit is Perfect
+when sel=00001 carry=0 
+
+Arithmetic Unit is Perfect
+when sel=00001 carry=1 
+
+Arithmetic Unit is Perfect
+when sel=00010 carry=0 
+
+Arithmetic Unit is Perfect
+when sel=00010 carry=1 
+
+Arithmetic Unit is Perfect
+when sel=00011 carry=0 
+
+Arithmetic Unit is Perfect
+when sel=00011 carry=1 
+
+Logic Unit is Perfect
+when sel=00100  
+
+Logic Unit is Perfect
+when sel=00101  
+
+Logic Unit is Perfect
+when sel=00110  
+
+Logic Unit is Perfect
+when sel=00111  
+
+Shift Unit is Perfect
+when sel=00000  
+
+Shift Unit is Perfect
+when sel=01000  
+
+Shift Unit is Perfect
+when sel=10000  
+
+Shift Unit is Perfect
+when sel=11000  
+
+Shift Unit is Perfect
+when sel=00000  
+
+This input is not permitted

@@ -1,0 +1,75 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/eyantra/task_5_files/files/simulation/qsim
+vhard_block
+Z1 !s110 1612279634
+!i10b 1
+!s100 iPR;R;mO1hAWZ]UB]1afQ2
+I_B@0UzGGei_@kNXn>R2ei0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1612279632
+Z4 8line_follow_algo.vo
+Z5 Fline_follow_algo.vo
+L0 6977
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1612279634.000000
+Z8 !s107 line_follow_algo.vo|
+Z9 !s90 -work|work|line_follow_algo.vo|
+!i113 1
+Z10 o-work work
+Z11 tCvgOpt 0
+vsm_0535_Line_follower
+R1
+!i10b 1
+!s100 WT2lURVOa8f:`7_LB?HF;3
+IXfaJc@BYdzb:63?HmAAi]3
+R2
+R0
+R3
+R4
+R5
+L0 32
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+nsm_0535_@line_follower
+vsm_0535_Line_follower_vlg_vec_tst
+!s110 1612279635
+!i10b 1
+!s100 aFGB9dP:ZMTCQ]:]mN7MX2
+I9FHgEAaTCa`D=7nB?zSM_0
+R2
+R0
+w1612279631
+8Waveform.vwf.vt
+FWaveform.vwf.vt
+L0 30
+R6
+r1
+!s85 0
+31
+!s108 1612279635.000000
+!s107 Waveform.vwf.vt|
+!s90 -work|work|Waveform.vwf.vt|
+!i113 1
+R10
+R11
+nsm_0535_@line_follower_vlg_vec_tst

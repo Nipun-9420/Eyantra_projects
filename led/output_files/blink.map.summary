@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Wed Jan 19 12:51:13 2022
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : blink
+Top-level Entity Name : b_led
+Family : Cyclone IV E
+Total logic elements : 1,077
+    Total combinational functions : 613
+    Dedicated logic registers : 816
+Total registers : 816
+Total pins : 4
+Total virtual pins : 0
+Total memory bits : 4,480
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

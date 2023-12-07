@@ -1,0 +1,16 @@
+
+State Machine - |f_b|for_loop:inst|S_Start
+Name S_Start.00000000000001 
+S_Start.00000000000000 0 
+S_Start.00000000000001 1 
+
+State Machine - |f_b|for_loop:inst|work_to_do
+Name work_to_do.make_Stop work_to_do.make_path_invers1 work_to_do.make_path_2 work_to_do.make_path_1 work_to_do.two_loop_check work_to_do.current_loop_check work_to_do.check_l work_to_do.make_path_invers2 
+work_to_do.check_l 0 0 0 0 0 0 0 0 
+work_to_do.current_loop_check 0 0 0 0 0 1 1 0 
+work_to_do.two_loop_check 0 0 0 0 1 0 1 0 
+work_to_do.make_path_1 0 0 0 1 0 0 1 0 
+work_to_do.make_path_2 0 0 1 0 0 0 1 0 
+work_to_do.make_path_invers1 0 1 0 0 0 0 1 0 
+work_to_do.make_Stop 1 0 0 0 0 0 1 0 
+work_to_do.make_path_invers2 0 0 0 0 0 0 1 1 

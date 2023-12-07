@@ -1,0 +1,20 @@
+|motor
+A1_A <= pwm:inst.A1_A
+clk => pwm:inst.clk
+A1_B <= pwm:inst.A1_B
+B1_A <= pwm:inst.B1_A
+B1_B <= pwm:inst.B1_B
+
+
+|motor|pwm:inst
+clk => clk_o.CLK
+clk => count[0].CLK
+clk => count[1].CLK
+clk => count[2].CLK
+clk => count[3].CLK
+A1_A <= LessThan1.DB_MAX_OUTPUT_PORT_TYPE
+A1_B <= LessThan2.DB_MAX_OUTPUT_PORT_TYPE
+B1_A <= LessThan1.DB_MAX_OUTPUT_PORT_TYPE
+B1_B <= LessThan3.DB_MAX_OUTPUT_PORT_TYPE
+
+

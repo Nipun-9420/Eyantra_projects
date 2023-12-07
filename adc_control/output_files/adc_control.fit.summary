@@ -1,0 +1,16 @@
+Fitter Status : Successful - Fri Jan 14 22:43:37 2022
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : adc_control
+Top-level Entity Name : adc_control
+Family : Cyclone IV E
+Device : EP4CE22F17C6
+Timing Models : Final
+Total logic elements : 680 / 22,320 ( 3 % )
+    Total combinational functions : 513 / 22,320 ( 2 % )
+    Dedicated logic registers : 476 / 22,320 ( 2 % )
+Total registers : 476
+Total pins : 10 / 154 ( 6 % )
+Total virtual pins : 0
+Total memory bits : 896 / 608,256 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

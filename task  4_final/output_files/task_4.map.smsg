@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at adc_convert.v(69): always construct contains both blocking and non-blocking assignments File: C:/Users/Nipun/Desktop/Eyantra/Nipun/task  4_final/adc_convert.v Line: 69
+Warning (10268): Verilog HDL information at uart.v(41): always construct contains both blocking and non-blocking assignments File: C:/Users/Nipun/Desktop/Eyantra/Nipun/task  4_final/uart.v Line: 41

@@ -1,0 +1,4 @@
+Info (10281): Verilog HDL Declaration information at first.v(3): object "d" differs only in case from object "D" in the same scope File: C:/Users/Nipun/Desktop/Eyantra 2/ALGORITHM/first.v Line: 3
+Info (10281): Verilog HDL Declaration information at first.v(12): object "I" differs only in case from object "i" in the same scope File: C:/Users/Nipun/Desktop/Eyantra 2/ALGORITHM/first.v Line: 12
+Info (10281): Verilog HDL Declaration information at first.v(13): object "J" differs only in case from object "j" in the same scope File: C:/Users/Nipun/Desktop/Eyantra 2/ALGORITHM/first.v Line: 13
+Info (10281): Verilog HDL Declaration information at first.v(4): object "A" differs only in case from object "a" in the same scope File: C:/Users/Nipun/Desktop/Eyantra 2/ALGORITHM/first.v Line: 4

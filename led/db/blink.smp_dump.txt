@@ -1,0 +1,6 @@
+
+State Machine - |b_led|led:inst|color
+Name color.0100 color.0010 color.0001 
+color.0001 0 0 0 
+color.0010 0 1 1 
+color.0100 1 0 1 

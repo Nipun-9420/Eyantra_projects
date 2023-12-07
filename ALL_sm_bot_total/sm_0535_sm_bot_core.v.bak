@@ -1,0 +1,1170 @@
+
+module sm_0535_sm_bot_core(  // ** need to test this module **//
+	input clk_core,
+	input [2:0] adc_data,	
+	output A1_A,
+	output A1_B,
+	output B1_A,
+	output B1_B
+	);
+	
+	// varialbles needed
+	reg [6:0] r_speed_a1_a = 0; // speed of right motor
+	reg [6:0] r_speed_a1_b = 0; // speed of right motor
+	reg [6:0] r_speed_b1_a = 0; // speed of left motor
+	reg [6:0] r_speed_b1_b = 0; // speed of left motor
+	reg r_node_start = 0;
+	reg [3:0] current_node = 0;  // to indicate current node
+	reg [3:0] next_node = 0;  // to indicate next node
+	reg [3:0] previous_node ;
+	
+	reg sequence_no = 0;	
+	reg path [16:0] ;
+	reg [3:0] nodes_to_follow [12:0]	;
+	
+	reg [6:0] counter = 90; // for pwm
+	
+	
+	// defining states to use in the state macine logic
+	parameter wait_for_node = 4'b0000;
+	parameter node_1 = 4'b0001;
+	parameter node_2 = 4'b0010;
+	parameter node_3 = 4'b0011;
+	parameter node_4 = 4'b0100;
+	parameter node_5 = 4'b0101; 
+	parameter node_6 = 4'b0110;
+	parameter node_7 = 4'b0111;
+	parameter node_8 = 4'b1000;
+	parameter node_9 = 4'b1001;
+	parameter node_10 = 4'b1010;
+	parameter node_11 = 4'b1011;
+	parameter node_0 = 4'b1100;
+		
+
+	
+	initial
+	begin
+		// defining path availability. if '0' then unavailable and if '1' available
+		//path[0] = 1;
+		path[1] = 1;
+		path[2] = 1;
+		path[3] = 1;
+		path[4] = 1;
+		path[5] = 1;
+		path[6] = 1;
+		path[7] = 1;  
+		path[8] = 1;
+		path[9] = 1;
+		path[10] = 0;
+		path[11] = 1;
+		path[12] = 1;
+		path[13] = 1;
+		path[14] = 1;
+		path[15] = 1;
+		path[16] = 1; // no. 16 is for bridge
+		
+		// defining nodes to follow or the path to follow
+		nodes_to_follow[0] = 1;
+		nodes_to_follow[1] = 11;
+		nodes_to_follow[2] = 10;
+		nodes_to_follow[3] = 11;
+		nodes_to_follow[4] = 1;
+		nodes_to_follow[5] = 2;
+		nodes_to_follow[6] = 3;
+		nodes_to_follow[7] = 8;
+		nodes_to_follow[8] = 7;
+		nodes_to_follow[9] = 9;
+		nodes_to_follow[10] = 8;
+		nodes_to_follow[11] = 0;
+		nodes_to_follow[12] = 0;
+		
+		// definig start position
+		previous_node = node_0; 
+		next_node = nodes_to_follow[0];
+	end
+	
+			
+	
+	
+	// defining tasks for line following and turning ---------------------------------------------------------------------------------------
+ 	task line_follow ();  // this is used to follow line
+	begin
+		// adac_data is 3 bit bus and the bits represent the sensors itself. '1' means line detected '0' otherwise
+		case (adc_data) 
+			
+			3'b001 :
+			begin
+				r_speed_a1_a = 65;
+				r_speed_b1_a = 96;
+				
+				r_speed_a1_b = 0;
+				r_speed_b1_b = 0;
+			end
+			
+			3'b011 :
+			begin
+				r_speed_a1_a = 68;
+				r_speed_b1_a = 91;
+				r_speed_a1_b = 0;
+				r_speed_b1_b = 0;
+			end
+			
+			3'b010 :
+			begin	
+				r_speed_a1_a = 65;
+				r_speed_b1_a = 91;
+				r_speed_a1_b = 0;
+				r_speed_b1_b = 0;
+			end
+			
+			3'b110 :
+			begin
+				r_speed_a1_a = 70;
+				r_speed_b1_a = 91;
+				r_speed_a1_b = 0;
+				r_speed_b1_b = 0;
+			end
+			
+			3'b100 :
+			begin
+				r_speed_a1_a = 71;
+				r_speed_b1_a = 90;
+				r_speed_a1_b = 0;
+				r_speed_b1_b = 0;
+			end
+			
+			3'b111 : // node condition 
+			begin
+				r_node_start = 1; 
+				r_speed_a1_a = 35;
+				r_speed_b1_a = 35;
+				r_speed_a1_b = 0;
+				r_speed_b1_b = 0;
+			
+			end
+		endcase
+	end
+	endtask
+	
+	task turn_right ();  // to turn right
+		begin
+		r_speed_a1_a = 0;
+		r_speed_b1_a = 98;
+		r_speed_a1_b = 0;
+		r_speed_b1_b = 0;
+		end
+	endtask
+	
+	task turn_left (); // to turn left
+		begin
+		r_speed_a1_a = 98;
+		r_speed_b1_a = 0;
+		r_speed_a1_b = 0;
+		r_speed_b1_b = 0;
+		end
+	endtask
+	
+	task go_straight (); // to ignore node
+		begin
+		r_speed_a1_a = 65;
+		r_speed_b1_a = 95;
+		r_speed_a1_b = 0;
+		r_speed_b1_b = 0;
+		end
+	endtask
+	
+	task turn_around (); 
+		begin
+		r_speed_a1_b = 95;
+		r_speed_b1_a = 95;
+		r_speed_a1_a = 0;
+		r_speed_b1_b = 0;
+		end
+	endtask
+	
+	
+	
+//--------------------------------------line_follow_alorithm--------------------------------------------------------------	
+	// working code -------------------------------------------------------------------------------------------------------------------------------------
+	// using state machine to know the location of bot
+	// below state represents the different paths in the map
+	
+	always @ (posedge clk_core)
+	begin
+		
+		/* this algoritm checks
+		1. the current positon/node  
+		2. the node it arrived from and
+		3. the next node to go to
+		4. the availability of paths 
+		based on above four variables/factors it decides what action to take 
+		p.s. this code only considers unavailability of one arch paths in a full circular path 
+		and favours clockwise rotation*/
+		
+		case(current_node) 
+		
+			wait_for_node:  // this case is when trvelling on path or arch between two nodes -----------------------------------
+			begin
+				line_follow();
+				if( adc_data == 3'b111) current_node = next_node;
+			end
+		
+			// current position of bot is node '1' joining paths 1, 9 and 0 (start) --------------------------------------------------------------------------------
+			node_1:
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+			
+				case(previous_node) 
+			
+					node_0: // if the bot has arrived from start position
+					begin
+						previous_node = current_node;
+						case(next_node)
+				
+							node_2:
+							begin
+					
+								turn_left();
+								current_node = wait_for_node;
+							end
+					
+							node_11:
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+			
+					node_2: // if bot has arrived from node no. 2 
+					begin
+						previous_node = current_node;
+						go_straight();
+						current_node = wait_for_node;
+					end
+				
+					node_11: // if the bot has arrived from node no. 2
+					begin
+						previous_node = current_node;
+						go_straight();
+						current_node = wait_for_node;
+					end
+				
+				endcase
+		
+			end
+		
+//------------------------- Main Processing Unit (MPU) -------------------------------------------------------------------- 
+		
+			node_2: //current position of bot is node '2' joining paths 1, 2 and 10 -------------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+			
+				case(previous_node)
+				
+					node_1: // if bot arrived from node 1
+					begin
+						previous_node = current_node;
+						case(next_node)
+					
+							node_3: // wants to got to node 3
+							begin
+								if(path[2])
+								begin
+									turn_left();
+									sequence_no = sequence_no - 1;
+									next_node = node_4;
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+						
+						
+							node_4:// wants to go to node 4
+							begin
+								if(path[2])
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									sequence_no = sequence_no - 1;
+									next_node = node_3;
+									current_node = wait_for_node;
+								end
+							end
+						
+						endcase
+					end
+				
+					node_3: // if bot arrived from node 3
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_4: // wants to go to node 4
+							begin
+								if(path[2])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								
+								else
+								begin
+									turn_around();
+									sequence_no = sequence_no - 1;
+									next_node = node_3;
+									current_node = wait_for_node;
+								end		
+							end
+							
+							node_1: // wants to go to node 1
+							begin
+								turn_left();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+				
+					node_4: // if bot arrived from 4
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_3: // wants to go to node 3
+							begin
+								// as bot wants to go to node 3 and has arrived from 
+								// node 4 it means path 11 is unavailable as bot favours clockwise revolving and this
+								// implies path 10 is available. threfore
+								turn_left();
+								current_node = wait_for_node;
+							end
+							
+							node_1: // wants to go to node 1
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					
+				
+				endcase
+			
+			end
+		
+			node_3: // current position of bot is node '3' joining paths 10, 11 and 16 i.e bride --------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+				
+					node_2: // if bot arrived from node 2
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_8: // wants to go to node 8
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+							
+							node_4: // wants to go to node 4
+							begin
+								// as bot wants to go to node 4 and has arrived from 
+								// node 2 it means path 2 is unavailable as bot favours clockwise revolving and this
+								// implies path 11 is available. therefore
+								turn_left();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					node_4: // if bot arrived from node 4
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_8: // wants to go to node 8
+							begin
+								turn_left();
+								current_node = wait_for_node;
+							end
+							
+							node_2: // wants to go to node 2
+							begin
+								if(path[10])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								
+								else
+								begin
+									turn_around();
+									sequence_no = sequence_no - 1;
+									next_node = node_4;
+									current_node = wait_for_node;
+								end
+								
+							end
+						endcase
+					end
+					
+					node_8: // if bot arrived from node 8
+					begin
+						previous_node = current_node;
+						case(next_node)
+					
+							node_2: // wants to got to node 2
+							begin
+								if(path[10])
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									sequence_no = sequence_no - 1;
+									next_node = node_4;
+									current_node = wait_for_node;
+								end
+							end
+						
+						
+							node_4:// wants to go to node 4
+							begin
+								if(path[10])
+								begin
+									turn_left();
+									sequence_no = sequence_no - 1;
+									next_node = node_2;
+									current_node = wait_for_node;
+									turn_right();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+						
+						endcase
+					end
+				endcase
+			end
+			
+			node_4: // current position of bot is node '4' joing paths 2, 11 and 3 --------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+				
+					node_2: // if bot arrived from node 2
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_5: // wants to go to node 8
+							begin
+								turn_left();
+								current_node = wait_for_node;
+							end
+							
+							node_3: // wants to go to node 3
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					node_3: // if bot arrived from node 3
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_5: // wants to go to node 5
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+							
+							node_2: // wants to go to node 2
+							begin
+								// as bot wants to go to node 2 and has arrived from 
+								// node 3 it means path 10 is unavailable and this
+								// implies path 2 is available. therefore
+								turn_left();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					node_5: // if bot arrived from node 5
+					begin
+						previous_node = current_node;
+						case(next_node)
+					
+							node_2: // wants to got to node 2
+							begin
+								if(path[11])
+								begin
+									turn_left();
+									sequence_no = sequence_no - 1;
+									next_node = node_3;
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+						
+						
+							node_3:// wants to go to node 3
+							begin
+								if(path[11])
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									sequence_no = sequence_no - 1;
+									next_node = node_2;
+									current_node = wait_for_node;
+								end
+							end
+						
+						endcase
+					end
+				endcase
+			end
+
+//------------------------ Warehouse (W) ----------------------------------------------------------------------------------
+			
+			node_5: // current position of bot is node '5' joing paths 3, 4 and 12 --------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+					
+					node_4: // if bot arrived from node 4
+					begin
+						// as bot arrived from node 4 is shows that it is to travel to node 6
+						previous_node = current_node; 
+						
+						if (path[4])
+						begin 
+							turn_left();
+							current_node = wait_for_node;
+						end
+						
+						else
+						begin
+							turn_right();
+							current_node = wait_for_node;
+						end
+					end
+					
+					node_6: // if bot arrived from node 6
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_6: //want to go to node 6
+							begin
+								if(!path[4] | !path[12])
+								begin
+									turn_around();
+									current_node = wait_for_node;
+								end
+								
+								else 
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+							
+							node_4: // want to go to node 4
+							begin
+								if(!path[12])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+							end
+						endcase
+					end
+				endcase
+			end
+			
+			node_6: // current position of bot is node '6' joing paths 4, 5 and 12 --------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+					
+					node_5: // if bot arrived from node 5
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_5: // want to go to node 5 
+							begin
+								if(!path[4] | !path[12])
+								begin
+									turn_around();
+									current_node = wait_for_node;
+								end
+								
+								else 
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+							
+							node_7: // want to go to node 7
+							begin
+								if(!path[4])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+							end
+						endcase
+					end
+					
+					node_7: // if bot arrived from node 7
+					begin
+						// as bot arrived from node 7 is shows that it is to travel to node 5
+						previous_node = current_node; 
+						
+						if (path[12])
+						begin 
+							turn_left();
+							current_node = wait_for_node;
+						end
+						
+						else
+						begin
+							turn_right();
+							current_node = wait_for_node;
+						end
+					end
+				endcase
+			end
+			
+//--------------------------------- Safety Service Unit (SSU) -------------------------------------------------------------------		
+			
+		
+			
+			node_7: //current position of bot is node '7' joining paths 5, 6 and 13 -------------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+			
+				case(previous_node)
+				
+					node_6: // if bot arrived from node 6
+					begin
+						previous_node = current_node;
+						case(next_node)
+					
+							node_8: // wants to got to node 8
+							begin
+								if(path[6])
+								begin
+									turn_left();
+									sequence_no = sequence_no - 1;
+									next_node = node_9;
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+						
+						
+							node_9:// wants to go to node 9
+							begin
+								if(path[6])
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									sequence_no = sequence_no - 1;
+									next_node = node_8;
+									current_node = wait_for_node;
+								end
+							end
+						
+						endcase
+					end
+				
+					node_8: // if bot arrived from node 8
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_9: // wants to go to node 9
+							begin
+								if(path[6])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								
+								else
+								begin
+									turn_around();
+									sequence_no = sequence_no - 1;
+									next_node = node_8;
+									current_node = wait_for_node;
+								end		
+							end
+							
+							node_6: // wants to go to node 6
+							begin
+								turn_left();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+				
+					node_9: // if bot arrived from 9
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_8: // wants to go to node 8
+							begin
+								// as bot wants to go to node 8 and has arrived from 
+								// node 9 it means path 14 is unavailable as bot favours clockwise revolving and this
+								// implies path 13 is available. threfore
+								turn_left();
+								current_node = wait_for_node;
+							end
+							
+							node_6: // wants to go to node 6
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					
+				
+				endcase
+			
+			end
+		
+			node_8: // current position of bot is node '8' joining paths 13, 14 and 16 i.e bridge --------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+				
+					node_7: // if bot arrived from node 7
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_3: // wants to go to node 3
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+							
+							node_9: // wants to go to node 9
+							begin
+								// as bot wants to go to node 9 and has arrived from 
+								// node 7 it means path 6 is unavailable as bot favours clockwise revolving and this
+								// implies path 14 is available. therefore
+								turn_left();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					node_9: // if bot arrived from node 9
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_3: // wants to go to node 3
+							begin
+								turn_left();
+								current_node = wait_for_node;
+							end
+							
+							node_7: // wants to go to node 7
+							begin
+								if(path[10])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								
+								else
+								begin
+									turn_around();
+									sequence_no = sequence_no - 1;
+									next_node = node_9;
+									current_node = wait_for_node;
+								end
+								
+							end
+						endcase
+					end
+					
+					node_3: // if bot arrived from node 3
+					begin
+						previous_node = current_node;
+						case(next_node)
+					
+							node_7: // wants to got to node 7
+							begin
+								if(path[13])
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									sequence_no = sequence_no - 1;
+									next_node = node_9;
+									current_node = wait_for_node;
+								end
+							end
+						
+						
+							node_9:// wants to go to node 9
+							begin
+								if(path[13])
+								begin
+									turn_left();
+									sequence_no = sequence_no - 1;
+									next_node = node_7;
+									current_node = wait_for_node;
+									turn_right();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+						
+						endcase
+					end
+				endcase
+			end
+			
+			node_9: // current position of bot is node '9' joing paths 6, 14 and 7 --------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+				
+					node_7: // if bot arrived from node 7
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_10: // wants to go to node 10
+							begin
+								turn_left();
+								current_node = wait_for_node;
+							end
+							
+							node_8: // wants to go to node 8
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					node_8: // if bot arrived from node 8
+					begin
+						previous_node = current_node;
+						case(next_node)
+							
+							node_10: // wants to go to node 10
+							begin
+								turn_right();
+								current_node = wait_for_node;
+							end
+							
+							node_7: // wants to go to node 7
+							begin
+								// as bot wants to go to node 7 and has arrived from 
+								// node 8 it means path 13 is unavailable and this
+								// implies path 6 is available. therefore
+								turn_left();
+								current_node = wait_for_node;
+							end
+						endcase
+					end
+					
+					node_10: // if bot arrived from node 10
+					begin
+						previous_node = current_node;
+						case(next_node)
+					
+							node_7: // wants to got to node 7
+							begin
+								if(path[14])
+								begin
+									turn_left();
+									sequence_no = sequence_no - 1;
+									next_node = node_8;
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+						
+						
+							node_8:// wants to go to node 8
+							begin
+								if(path[14])
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_right();
+									sequence_no = sequence_no - 1;
+									next_node = node_7;
+									current_node = wait_for_node;
+								end
+							end
+						
+						endcase
+					end
+				endcase
+			end
+			
+//----------------------------------------------- Packing Unit (PU) -----------------------------------------------------------------------			
+			
+			node_10: // current position of bot is node '10' joing paths 7, 8 and 15 --------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+					
+					node_9: // if bot arrived from node 9
+					begin
+						// as bot arrived from node 9 is shows that it is to travel to node 11
+						previous_node = current_node; 
+						
+						if (path[8])
+						begin 
+							turn_left();
+							current_node = wait_for_node;
+						end
+						
+						else
+						begin
+							turn_right();
+							current_node = wait_for_node;
+						end
+					end
+					
+					node_11: // if bot arrived from node 11
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_11: //want to go to node 11
+							begin
+								if(!path[8] | !path[15])
+								begin
+									turn_around();
+									current_node = wait_for_node;
+								end
+								
+								else 
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+							
+							node_4: // want to go to node 9
+							begin
+								if(!path[15])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+							end
+						endcase
+					end
+				endcase
+			end
+			
+			node_11: // current position of bot is node '11' joing paths 8, 9 and 15 --------------------------------------------------------------------
+			begin
+				sequence_no = sequence_no + 1;
+				next_node = nodes_to_follow[sequence_no];
+				
+				case(previous_node)
+					
+					node_10: // if bot arrived from node 10
+					begin
+						previous_node = current_node;
+						case(next_node)
+						
+							node_10: // want to go to node 10
+							begin
+								if(!path[8] | !path[15])
+								begin
+									turn_around();
+									current_node = wait_for_node;
+								end
+								
+								else 
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+							end
+							
+							node_1: // want to go to node 1
+							begin
+								if(!path[8])
+								begin
+									turn_right();
+									current_node = wait_for_node;
+								end
+								else
+								begin
+									turn_left();
+									current_node = wait_for_node;
+								end
+							end
+						endcase
+					end
+					
+					node_1: // if bot arrived from node 1
+					begin
+						// as bot arrived from node 1 is shows that it is to travel to node 10
+						previous_node = current_node; 
+						
+						if (path[15])
+						begin 
+							turn_left();
+							current_node = wait_for_node;
+						end
+						
+						else
+						begin
+							turn_right();
+							current_node = wait_for_node;
+						end
+					end
+				endcase
+			end
+		endcase	
+	end
+//-------------------------------------------------------------------------------------------------------------------------------			
+
+
+//---------------------------------------------always block of pwm------------------------------------------------------------	
+	
+	always@ (posedge clk_core)
+   begin
+      if(counter < 100)
+		begin 
+		   counter <= counter + 1;
+		end
+		else
+		begin
+		   counter <= 0;
+		end
+	end
+	
+	
+//---------------------------------------------------------------------------------------------------------------------	
+	
+	
+	
+	
+	
+	//assigning output
+	assign speed_a = r_speed_a1_a;
+	assign speed_a = r_speed_a1_b;
+	assign speed_b = r_speed_b1_a;
+	assign speed_b = r_speed_b1_b;
+	
+	
+	assign A1_A = (counter < r_speed_a1_a) ? 1:0;
+	assign A1_B = (counter < r_speed_a1_b) ? 1:0;
+	assign B1_A = (counter < r_speed_b1_a) ? 1:0;
+	assign B1_B = (counter < r_speed_b1_b) ? 1:0;
+	
+
+endmodule
+	
+	
+	
+	
+	
+	
+	
+	

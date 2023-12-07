@@ -1,0 +1,142 @@
+module sm_0535_uart_controller(
+	
+	input clk,
+	input o_tx_done,
+	input [2:0]color_in,
+	output tx_data_valid,
+	output [7:0] tx_byte
+	
+	);
+	
+	// different states
+	parameter IDLE = 2'b00,
+				 SEND = 2'b01,
+				 WAIT = 2'b10;
+				  
+	parameter green_cl = 3'b001,
+				 red_cl = 3'b010,
+				 blue_cl = 3'b100;
+	
+	
+	// variables
+	reg r_tx_data_valid = 0;
+	reg [1:0] current_state = IDLE;
+	
+	integer count = 0;
+	
+	integer msg_len = 9;
+	
+	reg [7:0] r_tx_byte;
+	
+	reg [7:0] msg [9:0];
+	reg [2:0] r_color_in; 
+
+	reg [3:0] previous_color_in = 0;
+	reg [79:0] temp_msg ;
+	reg [79:0] green_msg = "SI-PU-CT-#";
+	reg [79:0] red_msg = "SI-PU-FI-#";
+	reg [79:0] blue_msg = "SI-PU-CP-#";
+	
+	
+	// initiaizing msg structure  or msg --------------------------------------------------------------------------------
+	
+	always @ (posedge clk)
+	begin
+
+	 
+	// Actual message sending------------------------------------------------------------------------------------- 	
+		
+			case(current_state)
+		
+			IDLE: // to select which msg to send and to control only one transmission on a particular msg
+			begin
+				r_tx_data_valid = 0; 
+				r_color_in[2:0] = color_in[2:0] > 0 ? color_in[2:0] : previous_color_in[2:0]  ;
+				
+				case(r_color_in)  // to decide which msg to send
+					green_cl: temp_msg = green_msg;
+					red_cl : temp_msg = red_msg;
+					blue_cl : temp_msg = blue_msg;
+				endcase
+				
+				msg[0] = temp_msg[79:72];
+				msg[1] = temp_msg[71:64];
+				msg[2] = temp_msg[63:56];
+				msg[3] = temp_msg[55:48];
+				msg[4] = temp_msg[47:40];
+				msg[5] = temp_msg[39:32];
+				msg[6] = temp_msg[31:24];
+				msg[7] = temp_msg[23:16];
+				msg[8] = temp_msg[15:8];
+				msg[9] = temp_msg[7:0];
+				
+				if(r_color_in != previous_color_in)  // to control only one transmission of message
+				begin
+					previous_color_in = r_color_in;
+					current_state = SEND;
+				end 
+				else current_state = IDLE;
+			end
+			
+			SEND:
+			begin 
+			   r_tx_data_valid = 1;
+			   r_tx_byte = msg[count];
+			   if (!o_tx_done)
+			   begin
+					current_state = WAIT;
+			   end
+			   else
+			   begin
+					current_state = SEND;
+			   end
+			end   
+	
+			WAIT:
+			begin
+				r_tx_data_valid = 0;
+				if ( o_tx_done )
+				begin
+					current_state = SEND;
+					count = count + 1;
+					if (count > msg_len)
+					begin
+						count = 0;
+						current_state = IDLE;
+					end
+				end
+				else
+				begin
+					current_state = WAIT;
+				end
+			end
+			endcase
+
+	end
+	
+	
+	// assiging output
+	assign tx_data_valid = r_tx_data_valid ;
+	assign tx_byte = r_tx_byte;
+	
+endmodule	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+	

@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at sm_0535_ADC_CONVERT.v(36): always construct contains both blocking and non-blocking assignments File: C:/Users/Nipun/Desktop/Eyantra/sm_bot_total/sm_0535_ADC_CONVERT.v Line: 36
+Warning (10268): Verilog HDL information at sm_0535UART_TRANSMITTER.v(44): always construct contains both blocking and non-blocking assignments File: C:/Users/Nipun/Desktop/Eyantra/sm_bot_total/sm_0535UART_TRANSMITTER.v Line: 44

@@ -1,0 +1,22 @@
+
+State Machine - |f_b|for_loop:inst|array1
+Name array1.0011 array1.0010 array1.0001 array1.0000 array1.0100 
+array1.0000 0 0 0 0 0 
+array1.0001 0 0 1 1 0 
+array1.0010 0 1 0 1 0 
+array1.0011 1 0 0 1 0 
+array1.0100 0 0 0 1 1 
+
+State Machine - |f_b|for_loop:inst|array
+Name array.1010 array.1001 array.1000 array.0111 array.0110 array.0101 array.0100 array.0011 array.0010 array.0001 array.0000 
+array.0000 0 0 0 0 0 0 0 0 0 0 0 
+array.0001 0 0 0 0 0 0 0 0 0 1 1 
+array.0010 0 0 0 0 0 0 0 0 1 0 1 
+array.0011 0 0 0 0 0 0 0 1 0 0 1 
+array.0100 0 0 0 0 0 0 1 0 0 0 1 
+array.0101 0 0 0 0 0 1 0 0 0 0 1 
+array.0110 0 0 0 0 1 0 0 0 0 0 1 
+array.0111 0 0 0 1 0 0 0 0 0 0 1 
+array.1000 0 0 1 0 0 0 0 0 0 0 1 
+array.1001 0 1 0 0 0 0 0 0 0 0 1 
+array.1010 1 0 0 0 0 0 0 0 0 0 1 

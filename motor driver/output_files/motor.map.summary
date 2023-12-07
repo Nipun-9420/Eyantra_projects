@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Fri Mar 04 10:49:44 2022
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : motor
+Top-level Entity Name : motor
+Family : Cyclone IV E
+Total logic elements : 715
+    Total combinational functions : 494
+    Dedicated logic registers : 509
+Total registers : 509
+Total pins : 5
+Total virtual pins : 0
+Total memory bits : 1,408
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

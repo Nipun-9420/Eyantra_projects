@@ -1,0 +1,16 @@
+Fitter Status : Successful - Fri Mar 04 10:49:55 2022
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : motor
+Top-level Entity Name : motor
+Family : Cyclone IV E
+Device : EP4CE22F17C6
+Timing Models : Final
+Total logic elements : 692 / 22,320 ( 3 % )
+    Total combinational functions : 496 / 22,320 ( 2 % )
+    Dedicated logic registers : 509 / 22,320 ( 2 % )
+Total registers : 509
+Total pins : 5 / 154 ( 3 % )
+Total virtual pins : 0
+Total memory bits : 1,408 / 608,256 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

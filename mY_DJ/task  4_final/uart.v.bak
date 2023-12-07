@@ -1,0 +1,150 @@
+//Finite State Machine design
+//Inputs : Clock, X (Input Stream)
+//Output : Y (Y = 1 when 1100 pattern/sequence is detected)
+
+//////////////////DO NOT MAKE ANY CHANGES IN MODULE///////////////////////////////
+module uart(
+
+		input clk,	          //Clock input
+		input TX_DATA_VALID,		//Input Bitstream  	
+		input [7:0] TX_BYTE,
+		
+		output tx,		
+	   output O_TX_DONE
+);
+
+
+	// different states	
+	parameter	IDLE = 3'b000,          
+					TX_START_BIT = 3'b001,
+					TX_DATA_BITS = 3'b010,
+					TX_STOP_BIT = 3'b011,
+					CLEANUP = 3'b100;
+
+	// variables to assign values during code				
+	reg r_tx_serial = 1;		
+	reg r_tx_done = 0;
+	
+	reg [3:0] Bit_Index = 0;        
+	reg [2:0] current_state = IDLE;  
+	
+	reg [7:0] r_tx_byte;
+	
+	integer counter = 1;   // to count cycles to wait 
+	integer wait_count = 434;  // this many cycles to wait
+	
+	
+
+	
+	// assigining output
+	assign tx = r_tx_serial;		
+	assign O_TX_DONE = r_tx_done;
+	
+	
+	always@(posedge clk)
+	begin
+		
+		case(current_state)
+		
+		IDLE:
+		begin
+			if (TX_DATA_VALID )
+			begin
+				current_state <= TX_START_BIT;
+				counter <= 1;
+				r_tx_byte <= TX_BYTE;
+				r_tx_done <= 0;
+			end 
+			
+			else 
+			begin 
+				current_state <= IDLE;
+				r_tx_serial <= 1;
+				r_tx_done <= 0;
+			end
+		end
+				
+		TX_START_BIT:
+		begin
+			   
+			if (counter < wait_count)
+			begin
+				r_tx_serial <= 0;
+				current_state <= TX_START_BIT;
+				counter <= counter + 1;	
+			end 
+			
+			else 
+			begin
+				counter <= 1;
+			   current_state <= TX_DATA_BITS;	
+			end
+		end
+				
+		TX_DATA_BITS:
+		begin	
+			 
+			if(Bit_Index < 7)
+			begin
+				if(counter < wait_count)
+				begin
+					r_tx_serial <= r_tx_byte[Bit_Index] ;
+					counter <= counter + 1;
+				end
+				
+				else
+				begin
+					counter = 1;
+					Bit_Index <= Bit_Index + 1;
+				end
+				
+				
+			end
+			
+			else
+			begin
+				if(counter < wait_count)
+				begin
+					r_tx_serial <= r_tx_byte[Bit_Index] ;
+					counter <= counter + 1;
+				end
+				
+				else
+				begin
+					counter = 1;
+					current_state <= TX_STOP_BIT;
+				end
+				
+			end
+					
+		end
+				
+		TX_STOP_BIT:
+		begin
+			
+			if (counter < wait_count)
+			begin
+				r_tx_serial <= 1;
+			   current_state <= TX_STOP_BIT;
+				counter <= counter + 1;
+			end 
+			
+			else 
+			begin
+				current_state <= CLEANUP;
+			end
+		end
+				
+		CLEANUP:
+		begin
+			counter <= 1;
+			r_tx_done <= 1;
+			current_state <= IDLE;
+			Bit_Index <= 0;   
+		end
+		
+		endcase
+	end
+
+endmodule
+///////////////////////////////MODULE ENDS///////////////////////////

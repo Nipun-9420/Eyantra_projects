@@ -1,0 +1,61 @@
+module(
+   input clk,
+	output led_R,
+	output led_G,
+	output led_B
+   );
+
+	reg [10:0] count = 0 ;
+	reg r_led_R = 1; 
+	reg r_led_B = 1;
+	reg r_led_G = 1;
+	
+	
+	reg [3:0] color =3'b001; 
+	
+	assign led_R = r_led_R;
+	assign led_G = r_led_G;
+	assign led_B = r_led_B;
+	
+	
+	always @ (posedge clk)
+	begin
+	  count = count +1;
+	  
+	  if (count = 500)
+	  begin 
+		 case (color)
+		 
+		 3'b001:
+		 begin
+			r_led_R = 0;
+			r_led_B = 1;
+			r_led_G = 1;
+			color = 3'b010;
+		 end
+		 
+		 3'b010:
+		 begin
+			r_led_G = 0;
+			r_led_B = 1;
+			r_led_R = 1;
+			color = 3'b100;
+		 end
+		
+		3'b001:
+		 begin
+			r_led_B = 0;
+			r_led_R = 1;
+			r_led_G = 1;
+			color = 3'b001;
+		 end
+		 
+		 endcase
+		 
+		 count =1;
+	   end
+		
+	end
+		
+		 
+	

@@ -1,0 +1,117 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "chip_select",
+					"strict" : false
+				},
+				{
+					"name" : "din",
+					"strict" : false
+				},
+				{
+					"name" : "A1_A",
+					"strict" : false
+				},
+				{
+					"name" : "A1_B",
+					"strict" : false
+				},
+				{
+					"name" : "B1_A",
+					"strict" : false
+				},
+				{
+					"name" : "B1_B",
+					"strict" : false
+				},
+				{
+					"name" : "s2",
+					"strict" : false
+				},
+				{
+					"name" : "s3",
+					"strict" : false
+				},
+				{
+					"name" : "led_R",
+					"strict" : false
+				},
+				{
+					"name" : "led_G",
+					"strict" : false
+				},
+				{
+					"name" : "led_B",
+					"strict" : false
+				},
+				{
+					"name" : "o_tx_serial",
+					"strict" : false
+				},
+				{
+					"name" : "current_node[3]",
+					"strict" : false
+				},
+				{
+					"name" : "current_node[2]",
+					"strict" : false
+				},
+				{
+					"name" : "current_node[1]",
+					"strict" : false
+				},
+				{
+					"name" : "current_node[0]",
+					"strict" : false
+				},
+				{
+					"name" : "current_unit[2]",
+					"strict" : false
+				},
+				{
+					"name" : "current_unit[1]",
+					"strict" : false
+				},
+				{
+					"name" : "current_unit[0]",
+					"strict" : false
+				},
+				{
+					"name" : "clk_r8",
+					"strict" : false
+				},
+				{
+					"name" : "dout",
+					"strict" : false
+				},
+				{
+					"name" : "color_input",
+					"strict" : false
+				},
+				{
+					"name" : "i_rx_serial",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

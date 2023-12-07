@@ -1,0 +1,226 @@
+module uart_controller(
+	
+	input clk,								//* need to include all units in conditions
+	input o_tx_done,							
+	input [2:0]color_in,					// ** need to include start detcting color condition for led also
+	input start_detecting_color,
+	//output color_detected,
+	output tx_data_valid,
+	output [7:0] tx_byte,
+	output led_R,
+	output led_G,
+	output led_B
+	
+	);
+	
+	// different states
+	parameter IDLE = 2'b00,
+				 SEND = 2'b01,
+				 WAIT = 2'b10;
+				  
+	// to indicate color
+	parameter red_cl = 3'b001,
+				 blue_cl = 3'b010,
+				 green_cl = 3'b100; 
+				// no_cl = 3'b000;
+	
+	
+	// variables
+	reg r_tx_data_valid = 0;
+	reg [1:0] current_state = IDLE;
+	
+	//reg o_tx_done =1;
+	
+	integer count = 0 ;
+	
+	//----------------transmit_bit-------------
+	reg [7:0] r_tx_byte;
+	
+	reg [7:0] msg [11:0];
+	reg [2:0] r_color_in; 
+
+	reg [2:0] previous_color_in = 0;
+	reg [95:0] temp_msg  = 0;
+	
+	//--------------led--------------------
+	reg r_led_R = 0; 
+	reg r_led_B = 0;
+	reg r_led_G = 0;
+	
+	
+	// PU msgs
+	reg [87:0] MT_red_msg = "SI-SIM1-P-#";
+	reg [87:0] MT_green_msg = "SI-SIM2-N-#";
+	reg [87:0] MT_blue_msg = "SI-SIM3-W-#";
+		
+	
+	initial
+	begin
+		temp_msg[7:0] = 8'h0D;
+	end
+		
+	// initiaizing msg structure  or msg --------------------------------------------------------------------------------
+	
+	always @ (posedge clk)
+	begin
+
+	 if( start_detecting_color)
+	 begin
+	// Actual message sending------------------------------------------------------------------------------------- 	
+		
+			case(current_state)
+		
+			IDLE: // to select which msg to send and to control only one transmission on a particular msg
+			begin
+				r_tx_data_valid = 0; 
+				r_color_in[2:0] = color_in[2:0] > 0 ? color_in[2:0] : previous_color_in[2:0]  ;
+				
+				count = 0;
+				
+				case(r_color_in)  // to decide which msg to send
+				//------------------green---------------------
+					green_cl:
+					begin
+						temp_msg[95:8] = MT_green_msg;
+						r_led_G = 1;
+						r_led_R = 0;
+						r_led_B = 0;
+						
+					end
+					
+					//------------------red------------------
+					red_cl : 
+					begin
+						temp_msg[95:8] = MT_red_msg;
+						r_led_R = 1;
+						r_led_B = 0;
+						r_led_G = 0;
+					end
+					
+					//-------------------blue-----------
+					blue_cl :
+					begin
+						temp_msg[95:8] = MT_blue_msg;
+						r_led_B = 1;
+						r_led_G = 0;
+						r_led_R = 0;
+					end
+					
+					default:
+					begin
+						r_led_B = 0;
+						r_led_G = 0;
+						r_led_R = 0;
+					end
+					
+				endcase
+				
+				if ( color_in[2:0] == 3'b000)
+				begin
+					r_led_B = 0;
+					r_led_G = 0;
+					r_led_R = 0;
+				end
+				
+				
+				
+	
+				//----------------transmit_message_signal--------------------
+				msg[0] = temp_msg[95:88];
+				msg[1] = temp_msg[87:80];
+				msg[2] = temp_msg[79:72];
+				msg[3] = temp_msg[71:64];
+				msg[4] = temp_msg[63:56];
+				msg[5] = temp_msg[55:48];
+				msg[6] = temp_msg[47:40];
+				msg[7] = temp_msg[39:32];
+				msg[8] = temp_msg[31:24];
+				msg[9] = temp_msg[23:16];
+				msg[10] = temp_msg[15:8];
+				msg[11] = temp_msg[7:0];
+			
+				
+				if((r_color_in != previous_color_in) & start_detecting_color)  // to control only one transmission of message
+				begin
+					previous_color_in = r_color_in;
+					current_state = SEND;
+				end 
+				else 
+				begin
+					current_state = IDLE;
+				end
+			end
+			
+			SEND:
+			begin 
+			   r_tx_data_valid = 1;
+				r_tx_byte = msg[count];
+				if (count == 11)
+				begin
+					
+				end
+			  // r_tx_byte = msg[count];
+			   if (!o_tx_done)
+			   begin
+					current_state = WAIT;
+			   end
+			   else
+			   begin
+					current_state = SEND;
+			   end
+			end   
+	
+			WAIT:
+			begin
+				r_tx_data_valid = 0;
+				if ( o_tx_done )
+				begin
+					current_state = SEND;
+					count = count + 1;
+					if (count > 11)
+					begin
+						count = 0;
+						current_state = IDLE;
+					end
+				end
+				else
+				begin
+					current_state = WAIT;
+				end
+			end
+			endcase
+
+	end
+	end
+	
+	
+	// assiging output
+	assign tx_data_valid = r_tx_data_valid ;
+	assign tx_byte = r_tx_byte;
+	
+	assign led_R = r_led_R;
+	assign led_G = r_led_G;
+	assign led_B = r_led_B;
+	
+	
+endmodule	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+	

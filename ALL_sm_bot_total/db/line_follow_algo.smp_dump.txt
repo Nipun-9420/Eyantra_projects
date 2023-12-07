@@ -1,0 +1,45 @@
+
+State Machine - |sm_tot_block|sm_0535_SM_TOTALL:inst|sm_0535_UART_Receiver:rec_1|current_state
+Name current_state.RX_STOP_BIT current_state.RX_DATA_BITS current_state.RX_START_BIT current_state.000 current_state.CLEANUP 
+current_state.000 0 0 0 0 0 
+current_state.RX_START_BIT 0 0 1 1 0 
+current_state.RX_DATA_BITS 0 1 0 1 0 
+current_state.RX_STOP_BIT 1 0 0 1 0 
+current_state.CLEANUP 0 0 0 1 1 
+
+State Machine - |sm_tot_block|sm_0535_SM_TOTALL:inst|sm_0535_uart_rx_controller:cont_rx|current_state
+Name current_state.00 current_state.STOP current_state.REC_PATHS 
+current_state.00 0 0 0 
+current_state.REC_PATHS 1 0 1 
+current_state.STOP 1 1 0 
+
+State Machine - |sm_tot_block|sm_0535_SM_TOTALL:inst|sm_0535UART_TRANSMITTER:trans_1|current_state
+Name current_state.TX_STOP_BIT current_state.TX_DATA_BITS current_state.TX_START_BIT current_state.IDLE current_state.CLEANUP 
+current_state.IDLE 0 0 0 0 0 
+current_state.TX_START_BIT 0 0 1 1 0 
+current_state.TX_DATA_BITS 0 1 0 1 0 
+current_state.TX_STOP_BIT 1 0 0 1 0 
+current_state.CLEANUP 0 0 0 1 1 
+
+State Machine - |sm_tot_block|sm_0535_SM_TOTALL:inst|sm_0535_uart_controller:cont_tx|current_state
+Name current_state.IDLE current_state.WAIT current_state.SEND 
+current_state.IDLE 0 0 0 
+current_state.SEND 1 0 1 
+current_state.WAIT 1 1 0 
+
+State Machine - |sm_tot_block|sm_0535_SM_TOTALL:inst|sm_0535_sm_bot_core:follow_algo|detection_status
+Name detection_status.not_detected detection_status.detected detection_status.detecting detection_status.to_detect 
+detection_status.to_detect 0 0 0 0 
+detection_status.detecting 0 0 1 1 
+detection_status.detected 0 1 0 1 
+detection_status.not_detected 1 0 0 1 
+
+State Machine - |sm_tot_block|sm_0535_SM_TOTALL:inst|sm_0535_sm_bot_core:follow_algo|action_to_take
+Name action_to_take.go_st action_to_take.turn_A action_to_take.turn_L_arc action_to_take.turn_L action_to_take.turn_R_arc action_to_take.turn_R action_to_take.follow_line 
+action_to_take.follow_line 0 0 0 0 0 0 0 
+action_to_take.turn_R 0 0 0 0 0 1 1 
+action_to_take.turn_R_arc 0 0 0 0 1 0 1 
+action_to_take.turn_L 0 0 0 1 0 0 1 
+action_to_take.turn_L_arc 0 0 1 0 0 0 1 
+action_to_take.turn_A 0 1 0 0 0 0 1 
+action_to_take.go_st 1 0 0 0 0 0 1 

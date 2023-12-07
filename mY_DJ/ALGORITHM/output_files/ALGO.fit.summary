@@ -1,0 +1,16 @@
+Fitter Status : Failed - Fri Feb 11 16:55:52 2022
+Quartus Prime Version : 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Revision Name : ALGO
+Top-level Entity Name : f_b
+Family : Cyclone IV E
+Device : EP4CE22F17C6
+Timing Models : Final
+Total logic elements : 70,589 / 22,320 ( 316 % )
+    Total combinational functions : 70,384 / 22,320 ( 315 % )
+    Dedicated logic registers : 828 / 22,320 ( 4 % )
+Total registers : 828
+Total pins : 1 / 154 ( < 1 % )
+Total virtual pins : 0
+Total memory bits : 1,024 / 608,256 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

@@ -1,0 +1,69 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+!s11f vlog 2022.1_2 2022.04, Apr  2 2022
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home1/BPRN02/NDhandagE/VLSI_RN/Advanced_verilog/Code_coverage/lab3/vending_machine/solution/sim
+T_opt
+Z2 !s110 1701816587
+Vl_]4_^5nE7zOZd6a[PmA13
+04 10 4 work tb_coincol fast 0
+=1-000ae431a4f1-656fa90b-c69a3-1f622b
+R0
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work coin
+Z3 tCvgOpt 0
+n@_opt
+OL;O;2022.1_2;75
+vcoincol
+R2
+!i10b 1
+!s100 EH@=dbQ6og5b1IH91=T?i1
+II`90Zi>O4ioK]S1beF4dM2
+R1
+Z4 w1695299469
+8../rtl/coincol.v
+F../rtl/coincol.v
+!i122 0
+L0 25 139
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 OL;L;2022.1_2;75
+r1
+!s85 0
+31
+Z7 !s108 1701816587.000000
+Z8 !s107 ../tb/tb_coincol3.v|../rtl/coincol.v|
+Z9 !s90 -work|coin|-coveropt|3|+cover|+acc|../rtl/coincol.v|../tb/tb_coincol3.v|
+!i113 0
+Z10 !s102 -coveropt 3 +cover
+Z11 o-work coin -coveropt 3 +cover +acc -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R3
+vtb_coincol
+R2
+!i10b 1
+!s100 Bfh7o;7KVfZf8[Tl?WP6T1
+IGXGTNY:IU50XcQm2AbS7O2
+R1
+R4
+8../tb/tb_coincol3.v
+F../tb/tb_coincol3.v
+!i122 0
+L0 25 197
+R5
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 0
+R10
+R11
+R3

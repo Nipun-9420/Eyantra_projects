@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at adc_control.v(80): always construct contains both blocking and non-blocking assignments File: C:/Users/Nipun/Desktop/Eyantra/ADC/SM#1038_Task2A/adc_control/adc_control.v Line: 80

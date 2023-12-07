@@ -1,0 +1,46 @@
+
+State Machine - |block_diagram|uart_controller:inst5|current_state
+Name current_state.IDLE current_state.WAIT current_state.SEND 
+current_state.IDLE 0 0 0 
+current_state.SEND 1 0 1 
+current_state.WAIT 1 1 0 
+
+State Machine - |block_diagram|uart:inst14|current_state
+Name current_state.TX_STOP_BIT current_state.TX_DATA_BITS current_state.TX_START_BIT current_state.IDLE current_state.CLEANUP 
+current_state.IDLE 0 0 0 0 0 
+current_state.TX_START_BIT 0 0 1 1 0 
+current_state.TX_DATA_BITS 0 1 0 1 0 
+current_state.TX_STOP_BIT 1 0 0 1 0 
+current_state.CLEANUP 0 0 0 1 1 
+
+State Machine - |block_diagram|control_bot:inst1|next_node
+Name next_node.node_0 next_node.node_8 next_node.node_7 next_node.node_6 next_node.node_5 next_node.node_3 next_node.node_2 next_node.node_1 
+next_node.node_1 0 0 0 0 0 0 0 0 
+next_node.node_2 0 0 0 0 0 0 1 1 
+next_node.node_3 0 0 0 0 0 1 0 1 
+next_node.node_5 0 0 0 0 1 0 0 1 
+next_node.node_6 0 0 0 1 0 0 0 1 
+next_node.node_7 0 0 1 0 0 0 0 1 
+next_node.node_8 0 1 0 0 0 0 0 1 
+next_node.node_0 1 0 0 0 0 0 0 1 
+
+State Machine - |block_diagram|control_bot:inst1|action_to_take
+Name action_to_take.stop_s action_to_take.go_st action_to_take.turn_L action_to_take.turn_R action_to_take.follow_line 
+action_to_take.follow_line 0 0 0 0 0 
+action_to_take.turn_R 0 0 0 1 1 
+action_to_take.turn_L 0 0 1 0 1 
+action_to_take.go_st 0 1 0 0 1 
+action_to_take.stop_s 1 0 0 0 1 
+
+State Machine - |block_diagram|control_bot:inst1|current_node
+Name current_node.node_0 current_node.node_8 current_node.node_7 current_node.node_6 current_node.node_5 current_node.node_4 current_node.node_3 current_node.node_2 current_node.node_1 current_node.wait_for_node 
+current_node.wait_for_node 0 0 0 0 0 0 0 0 0 0 
+current_node.node_1 0 0 0 0 0 0 0 0 1 1 
+current_node.node_2 0 0 0 0 0 0 0 1 0 1 
+current_node.node_3 0 0 0 0 0 0 1 0 0 1 
+current_node.node_4 0 0 0 0 0 1 0 0 0 1 
+current_node.node_5 0 0 0 0 1 0 0 0 0 1 
+current_node.node_6 0 0 0 1 0 0 0 0 0 1 
+current_node.node_7 0 0 1 0 0 0 0 0 0 1 
+current_node.node_8 0 1 0 0 0 0 0 0 0 1 
+current_node.node_0 1 0 0 0 0 0 0 0 0 1 
